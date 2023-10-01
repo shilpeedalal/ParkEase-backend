@@ -9,11 +9,11 @@ const bookingRouter = Router();
 bookingRouter.post("/", async (req, res) => {
     try {
 
-        let { vehicle_company, vehicle_model, plate_number, car_color, space_id, user_id, confirm_booking = "pending" } = req.body
+        let {vehicle_model, plate_number, car_color, space_id, user_id, confirm_booking = "pending" } = req.body
 
         // Input validation
         const schema = Joi.object({
-            vehicle_company: Joi.string().required(),
+            // vehicle_company: Joi.string().required(),
             vehicle_model: Joi.string().required(),
             plate_number: Joi.string().required(),
             car_color: Joi.string().required(),
@@ -22,7 +22,7 @@ bookingRouter.post("/", async (req, res) => {
             confirm_booking: Joi.string().valid("approved", "pending", "rejected"),
         })
 
-        const { error } = schema.validate({ vehicle_company, vehicle_model, plate_number, car_color, space_id, user_id, confirm_booking });
+        const { error } = schema.validate({ vehicle_model, plate_number, car_color, space_id, user_id, confirm_booking });
         if (error) {
             return res.status(400).json({ error: error.details[0].message });
         }
@@ -31,7 +31,7 @@ bookingRouter.post("/", async (req, res) => {
             return res.status(400).json({ error: 'Space is already booked' });
         }
         else {
-            const booking = await Booking.create({ vehicle_company, vehicle_model, plate_number, car_color, space_id, user_id, confirm_booking });
+            const booking = await Booking.create({ vehicle_model, plate_number, car_color, space_id, user_id, confirm_booking });
             res.json({ message: "Booking created", booking });
         }
     } catch (error) {
