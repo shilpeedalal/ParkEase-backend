@@ -3,15 +3,19 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken");
 const User = require("../models/userSchema");
 const Joi = require('joi');
+// const dotenv = require('dotenv');
 const { Types } = require("mongoose");
+
+// dotenv.config()
 
 const userRouter = Router();
 
-const SECRET_JWT_CODE  = process.env.Secret_key;
+// const {SECRET_JWT_CODE = "shilpee123"}  = process.env;
 
 // Register new user
 userRouter.post("/register", async (req, res) => {
     try {
+        console.log("Inside register api");
         let { name, email, password, type } = req.body
 
         // Input validation
@@ -76,6 +80,7 @@ userRouter.get("/", async (req, res) => {
 // Login existing user
 userRouter.post("/login", async (req, res) => {
     try {
+        console.log("Inside login api");
         const { email, password } = req.body
 
         // Input validation
@@ -110,7 +115,7 @@ userRouter.post("/login", async (req, res) => {
                 const result = await bcrypt.compare(password, user.password);
                 if (result) {
                     // Generating and sending JWT token for authorization
-                    const token = await jwt.sign({ email: user.email }, SECRET_JWT_CODE);
+                    const token = await jwt.sign({ email: user.email }, process.env.Secret_key);
                     res.json({ user, token });
                 } else {
                     res.status(400).json({ error: "password doesn't match" });
