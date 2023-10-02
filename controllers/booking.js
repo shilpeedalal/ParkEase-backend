@@ -13,7 +13,6 @@ bookingRouter.post("/", async (req, res) => {
 
         // Input validation
         const schema = Joi.object({
-            // vehicle_company: Joi.string().required(),
             vehicle_model: Joi.string().required(),
             plate_number: Joi.string().required(),
             car_color: Joi.string().required(),

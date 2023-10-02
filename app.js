@@ -6,7 +6,6 @@ const userRouter = require("./controllers/user");
 const handleError = require('./utils/errorHandler');
 const { isLoggedIn } = require("./controllers/middleware");
 const parkingRouter = require("./controllers/parking");
-const paymentMethodRouter = require("./controllers/paymentMethod");
 const bookingRouter = require("./controllers/booking");
 const spaceRouter = require("./controllers/spaceRouter");
 const cors = require('cors');
@@ -30,7 +29,6 @@ app.get('/', isLoggedIn, async (req, res) => {
 
 app.use("/user", userRouter)
 app.use("/parking", parkingRouter)
-app.use("/paymentMethod", paymentMethodRouter)
 app.use("/booking", bookingRouter)
 app.use("/space", spaceRouter)
 app.use("/review", reviewRouter)
