@@ -7,7 +7,7 @@ const { Types } = require("mongoose");
 
 const userRouter = Router();
 
-const { SECRET_JWT_CODE } = process.env.Secret_key;
+const SECRET_JWT_CODE  = process.env.Secret_key;
 
 // Register new user
 userRouter.post("/register", async (req, res) => {
